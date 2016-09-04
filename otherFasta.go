@@ -30,22 +30,15 @@ func main() {
 		s := sc.Seq().(*linear.Seq)
 		AllSeqs[s.Name()] = s
 
-		n := s.Name()
-
-		//	fmt.Printf("sequence:  %v \n", AllSeqs[n])
-		//	fmt.Printf("AllSeqs:  %v \n", s)
-
-		var match bool
-
-		match = AllSeqs[n] == s
-
-		fmt.Println(match)
 	}
 
-	//	fmt.Printf("refstore: \n %v \n", AllSeqs.Name())
+	fmt.Printf("Candidate sequence: \n %v \n", AllSeqs["CM001014.2_44580072-44585076_+"])
 
-	name := len(AllSeqs)
+	for h := range AllSeqs { //___________________ h ends up being the header
+		fmt.Printf("Header: %v \n", h)
+		sequence := AllSeqs[h]
 
-	fmt.Printf("length:  %v \n", name)
+		fmt.Printf("sequence: %v \n", sequence)
 
+	}
 }
