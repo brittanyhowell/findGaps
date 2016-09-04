@@ -32,8 +32,14 @@ func main() {
 
 		n := s.Name()
 
-		fmt.Printf("sequence:  %v \n", n)
+		//	fmt.Printf("sequence:  %v \n", AllSeqs[n])
+		//	fmt.Printf("AllSeqs:  %v \n", s)
 
+		var match bool
+
+		match = AllSeqs[n] == s
+
+		fmt.Println(match)
 	}
 
 	//	fmt.Printf("refstore: \n %v \n", AllSeqs.Name())
