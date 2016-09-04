@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/biogo/biogo/alphabet"
+	"github.com/biogo/biogo/io/seqio"
 	"github.com/biogo/biogo/io/seqio/fasta"
 	"github.com/biogo/biogo/seq/linear"
 )
@@ -21,13 +22,24 @@ func main() {
 
 	in := fasta.NewReader(f, linear.NewSeq("", nil, alphabet.DNA))
 
-	//	fmt.Printf("Printing for the sake of printing: \n %v, \n %v \n", in, f)
+	sc := seqio.NewScanner(in)
 
-	s, err := in.Read()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+	AllSeqs := map[string]*linear.Seq{}
+
+	for sc.Next() {
+		s := sc.Seq().(*linear.Seq)
+		AllSeqs[s.Name()] = s
+
+		n := s.Name()
+
+		fmt.Printf("sequence:  %v \n", n)
+
 	}
-	t := s.Name()
-	fmt.Printf("More printing: \n  %s", t)
+
+	//	fmt.Printf("refstore: \n %v \n", AllSeqs.Name())
+
+	name := len(AllSeqs)
+
+	fmt.Printf("length:  %v \n", name)
+
 }
