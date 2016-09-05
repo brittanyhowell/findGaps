@@ -39,7 +39,7 @@ func main() {
 
 	for h := range AllSeqs { // h = header
 
-		fmt.Printf("Calculating for %v \n ", h)
+		fmt.Printf("Calculating for %v \n", h)
 
 		gaps := 0
 
@@ -49,41 +49,71 @@ func main() {
 
 		count := seq.Len()
 
-		for c := 0; c < count; {
+		var start int
+		var end int
+		var gapLength int
+
+		status := 0
+		for c := 0; c < count; c++ {
+			//fmt.Printf("loop %v \t", c)
 
 			l := seq.At(c).L
-			if l == gap {
-				start := c
-				limit := count - c
 
-				for g := 1; g < limit; { // FIX ME (G)
+			if l == gap && status == 0 {
+				status = 1
+				start = c
 
-					pos := g + c
-					candidate := seq.At(pos).L
-
-					//	fmt.Printf("Position of gap: %v, sequence at gaps %v\n", pos, candidate)
-					if candidate != gap {
-						//						fmt.Printf("pos, not gap: %v \n", pos)
-						end := pos - 1
-						//					fmt.Printf("End: %v \n", end)
-						c = pos
-						gapLength := (end - start) + 1
-						fmt.Printf("start: %v, \t end: %v, \t length of gap: %v \n", start, end, gapLength)
-						break
-
-					} else if candidate == gap {
-						//						fmt.Printf("pos, gap: %v \n", pos)
-						g++
-
-					}
-
-				}
-				gaps++
-			} else if l != gap {
-				c++
-
-				//fmt.Printf("Not a gap. gaps=%v \n", gaps)
 			}
+			if l != gap && status == 1 {
+				status = 0
+				end = c - 1
+				gapLength = end - start
+				fmt.Printf("start: %v, \t end: %v, \t length of gap: %v \n", start, end, gapLength)
+			}
+			if l == gap && c == count-1 {
+				end = c
+				gapLength = end - start
+				fmt.Printf("start: %v, \t end: %v, \t length of gap: %v \n", start, end, gapLength)
+			}
+
+			// if l == gap {
+			// 	start := c
+			// 	limit := count - c
+			// 	fmt.Printf("count: %v \t", count)
+			// 	for g := 0; g < limit; {
+			// 		pos := g + c
+			// 		//fmt.Printf("pos: %v", pos)
+
+			// 		if pos == count-1 {
+			// 			c = count
+			// 			break
+			// 		}
+
+			// 		candidate := seq.At(pos).L
+
+			// 		//	fmt.Printf("Position of gap: %v, sequence at gaps %v\n", pos, candidate)
+			// 		if candidate != gap {
+			// 			//						fmt.Printf("pos, not gap: %v \n", pos)
+			// 			end := pos
+			// 			//					fmt.Printf("End: %v \n", end)
+			// 			c = pos
+			// 			gapLength := end - start
+
+			// 			break
+
+			// 		} else if candidate == gap {
+			// 			//						fmt.Printf("pos, gap: %v \n", pos)
+			// 			g++
+
+			// 		}
+
+			// 	}
+			// 	gaps++
+			// } else if l != gap {
+			// 	c++
+
+			//fmt.Printf("Not a gap. gaps=%v \n", gaps)
+			//}
 
 		}
 
