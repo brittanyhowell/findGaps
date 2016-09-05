@@ -38,6 +38,9 @@ func main() {
 	//
 
 	for h := range AllSeqs { // h = header
+
+		fmt.Printf("Calculating for %v \n ", h)
+
 		gaps := 0
 
 		seq := AllSeqs[h]
@@ -51,9 +54,9 @@ func main() {
 			l := seq.At(c).L
 			if l == gap {
 				start := c
-				//              fmt.Printf("start: %v \n", start)
+				limit := count - c
 
-				for g := 1; g < 5; { // FIX ME (G)
+				for g := 1; g < limit; { // FIX ME (G)
 
 					pos := g + c
 					candidate := seq.At(pos).L
@@ -84,7 +87,7 @@ func main() {
 
 		}
 
-		fmt.Printf("seq: %v \t count: %vbp, gaptotal: %v gaps \n\n", h, count, gaps)
+		fmt.Printf("Sequence length: %vbp, Number of gaps: %v  \n\n", count, gaps)
 	}
 
 	//sequence := AllSeqs[h]
