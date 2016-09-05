@@ -13,7 +13,7 @@ import (
 
 func main() {
 
-	f, err := os.Open("cluster_198.fasta")
+	f, err := os.Open("TestSequences.fasta")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v.", err)
 		os.Exit(1)
@@ -24,31 +24,6 @@ func main() {
 
 	sc := seqio.NewScanner(in)
 
-	// //New byte map method
-	// seqMap := make(map[string][]byte)
-	// var seqName string
-	// for _, line := range bytes.Split(fileBytes, []byte{'\n'}) {
-
-	// 	line = bytes.TrimSpace(line)
-	// 	if len(line) == 0 {
-	// 		continue
-	// 	}
-
-	// 	// Hit an identifier line
-	// 	if line[0] == '>' {
-	// 		seqName = string(line[1:])
-
-	// 	} else {
-	// 		// Append here since multi-line DNA strings are possible
-	// 		if seqName == "" {
-	// 			return fmt.Errorf("bioutils.ReadFASTAFile(): missing sequence name in FASTA file"), nil
-	// 		}
-	// 		for _, byt := range line {
-	// 			seqMap[seqName] = append(seqMap[seqName], byt)
-	// 		}
-	// 	}
-	// }
-
 	// map seq method
 
 	AllSeqs := map[string]*linear.Seq{}
@@ -58,39 +33,58 @@ func main() {
 		AllSeqs[s.Name()] = s
 
 	}
-	// making a dash letter to compare
-	// var hyphen []byte
-	// hyphen = make([]byte, 1)
-	// hyphen[0] = '-'
-	// dash := alphabet.BytesToLetters(hyphen)
-	// fmt.Printf("dash: %v \t \n", dash)
 
 	//fmt.Printf("Candidate sequence: \n %v \n", AllSeqs["CM001014.2_44580072-44585076_+"])
-	var gaps int
+	//
+
 	for h := range AllSeqs { // h = header
-		gaps = 0
-		//fmt.Printf("Header: %v \n", h)
+		gaps := 0
 
 		seq := AllSeqs[h]
-		count := seq.Len()
-
-		fmt.Printf("seq: %v \t count: %v \n", h, count)
-
 		alpha := seq.Alphabet()
-		//indexOf := alpha.LetterIndex()
 		gap := alpha.Gap()
 
-		//fmt.Printf("gap %v %v \n", gap, indexOf)
+		count := seq.Len()
 
-		for c := 0; c < count; c++ {
+		for c := 0; c < count; {
 
 			l := seq.At(c).L
 			if l == gap {
+				start := c
+				//              fmt.Printf("start: %v \n", start)
+
+				for g := 1; g < 5; { // FIX ME (G)
+
+					pos := g + c
+					candidate := seq.At(pos).L
+
+					//	fmt.Printf("Position of gap: %v, sequence at gaps %v\n", pos, candidate)
+					if candidate != gap {
+						//						fmt.Printf("pos, not gap: %v \n", pos)
+						end := pos - 1
+						//					fmt.Printf("End: %v \n", end)
+						c = pos
+						gapLength := (end - start) + 1
+						fmt.Printf("start: %v, \t end: %v, \t length of gap: %v \n", start, end, gapLength)
+						break
+
+					} else if candidate == gap {
+						//						fmt.Printf("pos, gap: %v \n", pos)
+						g++
+
+					}
+
+				}
 				gaps++
+			} else if l != gap {
+				c++
+
+				//fmt.Printf("Not a gap. gaps=%v \n", gaps)
 			}
 
 		}
-		fmt.Printf("gaptotal: %v \n", gaps)
+
+		fmt.Printf("seq: %v \t count: %vbp, gaptotal: %v gaps \n\n", h, count, gaps)
 	}
 
 	//sequence := AllSeqs[h]
