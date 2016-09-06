@@ -3,6 +3,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/biogo/biogo/alphabet"
@@ -13,8 +14,8 @@ import (
 
 func main() {
 
-	f, err := os.Open("cluster_425.fasta")
-	//f, err := os.Open("TestSequences.fasta")
+	cluster := "cluster_425.fasta"
+	f, err := os.Open(cluster)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v.", err)
 		os.Exit(1)
@@ -30,11 +31,20 @@ func main() {
 		AllSeqs[s.Name()] = s
 	}
 
-	for h := range AllSeqs { // h = header
+	// Creating a file for the output
+	file := fmt.Sprintf("gaps_%v", cluster)
+	out, err := os.Create(file)
+	if err != nil {
+		log.Fatalf("failed to create %s: %v", file, err)
+	}
+	defer out.Close()
+
+	for h := range AllSeqs {
 
 		fmt.Printf("Calculating for %v \n", h)
 
 		gaps := 0
+		longGaps := 0
 		seq := AllSeqs[h]
 		alpha := seq.Alphabet()
 		gap := alpha.Gap()
@@ -55,15 +65,25 @@ func main() {
 				end = c - 1
 				gapLength = (end - start) + 1
 				gaps++
-				fmt.Printf("start: %v, \t end: %v, \t length of gap: %v \n", start, end, gapLength)
+				if gapLength > 5 {
+					longGaps++
+					//fmt.Printf("start: %v, \t end: %v, \t length of gap: %v \n", start, end, gapLength)
+					fmt.Fprintf(out, "%s \t %v \t %v \t %v \n", h, start, end, gapLength)
+				}
+
 			}
 			if l == gap && c == seq.Len()-1 {
 				end = c
 				gapLength = (end - start) + 1
 				gaps++
-				fmt.Printf("start: %v, \t end: %v, \t length of gap: %v \n", start, end, gapLength)
+				if gapLength > 5 {
+					longGaps++
+					//fmt.Printf("start: %v, \t end: %v, \t length of gap: %v \n", start, end, gapLength)
+					fmt.Fprintf(out, "%s \t %v \t %v \t %v \n", h, start, end, gapLength)
+				}
+
 			}
 		}
-		fmt.Printf("Sequence length: %vbp, Number of gaps: %v  \n\n", seq.Len(), gaps)
+		fmt.Printf("Sequence length: %vbp, Total gaps: %v, Gaps > 5bp: %v  \n\n", seq.Len(), gaps, longGaps)
 	}
 }
