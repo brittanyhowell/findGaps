@@ -2,6 +2,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -12,9 +13,17 @@ import (
 	"github.com/biogo/biogo/seq/linear"
 )
 
-func main() {
+var (
+	outpath      string
+	clusSequence string
+)
 
-	cluster := "cluster_425.fasta"
+func main() {
+	flag.StringVar(&clusSequence, "inSequence", "", "name of input sequence")
+	flag.StringVar(&outpath, "outpath", "", "path to output dir")
+	flag.Parse()
+
+	cluster := clusSequence
 	f, err := os.Open(cluster)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v.", err)
@@ -32,7 +41,7 @@ func main() {
 	}
 
 	// Creating a file for the output
-	file := fmt.Sprintf("gaps_%v", cluster)
+	file := fmt.Sprintf("%vgaps_%v", outpath, cluster)
 	out, err := os.Create(file)
 	if err != nil {
 		log.Fatalf("failed to create %s: %v", file, err)
@@ -40,8 +49,6 @@ func main() {
 	defer out.Close()
 
 	for h := range AllSeqs {
-
-		fmt.Printf("Calculating for %v \n", h)
 
 		gaps := 0
 		longGaps := 0
@@ -84,6 +91,6 @@ func main() {
 
 			}
 		}
-		fmt.Printf("Sequence length: %vbp, Total gaps: %v, Gaps > 5bp: %v  \n\n", seq.Len(), gaps, longGaps)
+		fmt.Printf("Sequence: %v \t length: %vbp, \t Total gaps: %v, \t Gaps > 5bp: %v  \n", h, seq.Len(), gaps, longGaps)
 	}
 }
