@@ -15,20 +15,24 @@ library(IRanges)
 
 # randomly generated start and end coordinates of intervals
 bed <- read.table(file = args[1])
+#bed <- read.table("../gapOutput12NonSplit/gaps_cluster_2.fasta")
 colnames(bed) <- c("name", "start", "end", "length")
 
 start = bed$start
 end = bed$end
-
 
 # intervals stored as an IRanges object
 intervals <- IRanges(start = start, end = end)
 
 pdf(args[2], width = 10, height = 6)
 
-# plot coverage
-plot(coverage(intervals), type = "l"  , xlab = "position")
+x <- c(seq(from=0,to=40000,by=500))
 
+cov <- coverage(intervals)
+
+# plot coverage
+plot(cov[cov < 8 ], type = "l"  , xlab = "position",  xaxt="n", ylab = "number of sequences with gaps", main = args[3])
+axis(side = 1, at = x)
 graphics.off()
 
 # so this is if we had 10 elements that could randomly contain gaps at any position
@@ -52,3 +56,5 @@ graphics.off()
 #points(x = pos, y = cov[pos], pch = 16 ,col = 2)
 #abline(h = 2, col = 3)
 #abline(h = 15, col = 3)
+
+
