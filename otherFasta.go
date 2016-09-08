@@ -48,11 +48,10 @@ func main() {
 	}
 	defer out.Close()
 
-	for h := range AllSeqs {
+	for h, seq := range AllSeqs {
 
 		gaps := 0
 		longGaps := 0
-		seq := AllSeqs[h]
 		alpha := seq.Alphabet()
 		gap := alpha.Gap()
 
@@ -72,7 +71,7 @@ func main() {
 				end = c - 1
 				gapLength = (end - start) + 1
 				gaps++
-				if gapLength > 5 {
+				if gapLength > 12 {
 					longGaps++
 					//fmt.Printf("start: %v, \t end: %v, \t length of gap: %v \n", start, end, gapLength)
 					fmt.Fprintf(out, "%s \t %v \t %v \t %v \n", h, start, end, gapLength)
