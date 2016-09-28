@@ -30,10 +30,19 @@ pdf(args[2], width = 10, height = 6)
 
 cov <- coverage(intervals)
 
+plot(gaps$start[order(gaps$start)], gaps$length[order(gaps$start)], type = "l",  xlim = c(0,6000), xlab = "start position", ylab = "gap Length")
+plot(gaps$end[order(gaps$end)], gaps$length[order(gaps$end)], type = "l",  xlim = c(0,6000), xlab = "end position", ylab = "gap Length")
+
+
+
 plot(coverage(intervals), type = "l")
+
+
+
 
 smoothNum <- round(runmean(coverage(intervals), 51, endrule = "constant"))
 plot(smoothNum, type = "l", xlim = c(0,6000), xlab = "Position", ylab = "Instances of gaps")
+
 #lines(ksmooth(x, y, kernel = "normal", bandwidth = 5))#, col = ‘purple’, lty=7)
 
 # plot coverage
