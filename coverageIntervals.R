@@ -14,9 +14,8 @@ setwd("~/Documents/University/Honours_2016/Project/ClusterFilter/findGaps/Script
 library(IRanges)
 
 # randomly generated start and end coordinates of intervals
-#bed <- read.table(file = args[1])
-#bed <- read.table("../gapOutput12NonSplit/gaps_cluster_2.fasta")
-bed <- read.table("../outputGapFinding/gapOutput12NonSplit/gaps_cluster_108.fasta")
+bed <- read.table(file = args[1])
+#bed <- read.table("../outputGapFinding/gapTrials/gapOutput12NonSplit/gaps_cluster_108.fasta")
 colnames(bed) <- c("name", "start", "end", "length")
 
 start = bed$start
@@ -27,35 +26,9 @@ intervals <- IRanges(start = start, end = end)
 
 pdf(args[2], width = 10, height = 6)
 
-#x <- c(seq(from=0,to=40000,by=500))
-
 cov <- coverage(intervals)
-
 # plot coverage
 plot(cov[cov < 8 ], type = "l"  , xlab = "position",   ylab = "number of sequences with gaps", main = args[3])
 #axis(side = 1, at = x)
 graphics.off()
-
-# so this is if we had 10 elements that could randomly contain gaps at any position
-#n = args[2]
-
-# the total number of gaps across all elements / the total number of positions across all elemennts
-#p = sum(width(intervals))/(length(coverage(intervals))*n)
-
-#abline(h = n*p) # mean
-#abline(h= (n*p) + (1*sqrt(n*p*(1-p))), lty = 2) #mean + 1sd
-#abline(h= (n*p) - (1*sqrt(n*p*(1-p))), lty = 2) # mean - 1 sd
-
-#abline(h= (n*p) + (2*sqrt(n*p*(1-p))), lty = 2) #mean + 2sd
-#abline(h= (n*p) - (2*sqrt(n*p*(1-p))), lty = 2) # mean - 2 sd
-
-
-
-#cov <- as.integer(coverage(intervals))
-#pos <- (1:length(cov))[cov < 15 & cov > 2]
-
-#points(x = pos, y = cov[pos], pch = 16 ,col = 2)
-#abline(h = 2, col = 3)
-#abline(h = 15, col = 3)
-
 
