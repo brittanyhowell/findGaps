@@ -82,7 +82,7 @@ func main() {
 				end = c
 				gapLength = (end - start) + 1
 				gaps++
-				if gapLength > 5 {
+				if gapLength > 12 {
 					longGaps++
 					//fmt.Printf("start: %v, \t end: %v, \t length of gap: %v \n", start, end, gapLength)
 					fmt.Fprintf(out, "%s \t %v \t %v \t %v \n", h, start, end, gapLength)
