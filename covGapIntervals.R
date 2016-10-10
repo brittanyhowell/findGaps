@@ -15,7 +15,7 @@ library(IRanges)
 
 # randomly generated start and end coordinates of intervals
 #bed <- read.table(file = args[1])
-gaps <- read.table("../outputGapFinding/gapsTable.txt")
+  gaps <- read.table("../outputGapFinding/gapsTable.txt")
 colnames(gaps) <- c("cluster", "start", "end", "length")
 
 start = gaps$start

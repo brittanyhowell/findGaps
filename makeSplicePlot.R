@@ -29,33 +29,27 @@ pdf(args[4], width = 10, height = 6)
   abline(h = num/16, col = 1)
 graphics.off()
 
-#p = sum(width(intervals))/(length(coverage(intervals))*n)
 
-# p <- (1/16)
-# monoP <- (1/4)
-# abline(h= num/4 - (sqrt((p*(1-p))/num)), lty = 2) # mean - 2 sd
-# 
-# library(stringr)
-# numAA <- sum(str_count(splices$site, "AA"))
-# numAC <- sum(str_count(splices$site, "AC"))
-# numAG <- sum(str_count(splices$site, "AG"))
-# numAT <- sum(str_count(splices$site, "AT"))
-# numCA <- sum(str_count(splices$site, "CA"))
-# numCC <- sum(str_count(splices$site, "CC"))
-# numCG <- sum(str_count(splices$site, "CG"))
-# numCT <- sum(str_count(splices$site, "CT"))
-# numGT <- sum(str_count(splices$site, "GT"))
-# numTG <- sum(str_count(splices$site, "TG"))
-# numTT <- sum(str_count(splices$site, "TT"))
-# prop.test(numAA,num,1/16)
-# prop.test(numAC,num,1/16)
-# prop.test(numAG,num,1/16)
-# prop.test(numAT,num,1/16)
-# prop.test(numCA,num,1/16)
-# prop.test(numCC,num,1/16)
-# prop.test(numCG,num,1/16)
-# prop.test(numCT,num,1/16)
-# prop.test(numGT,num,1/16)
-# prop.test(numTG,num,1/16)
-# prop.test(numTT,num,1/16)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
