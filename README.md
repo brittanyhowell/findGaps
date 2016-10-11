@@ -1,4 +1,4 @@
-# ClusterFilter
+# findGaps
 
 ## Summary:
 This repo finds instances of long gaps which occur in multiple sequences, and has some tools to analyse the output (which for now has to be collected manually...)
