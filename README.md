@@ -14,9 +14,13 @@ Output: 	Plots which suggest where gaps might be, and a summary plot of where th
 - findGaps.go:			Scan alignment fasta files, look for gaps, report coordinates of gaps.
 - coverageIntervals.R:	Plots coverage data across canonical L1s of alignment gaps, to allow visualisation of gaps common to multiple sequences.
 
+
+
 - LatexToTab.sh:			Converts LaTeX table into tab delimited file.
 - covGapIntervals.sh:		Plots coverage plot of every candidate plot (bad way of displaying data).
 - coverageGenomic.sh:		Plots rectangle ranges plot of every candidate gap (still bad but not quite as bad).
+
+
 
 - extractGenomeSites.sh:	Uses sed/awk to extract the useful splice junction nucleotides from the recorded genome data. Invokes makeSplicePlot.sh.
 - makeSplicePlot.sh:		Makes fairly atrocious plot of the most common SJ nucleotides.
