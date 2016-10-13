@@ -18,7 +18,7 @@ Output: 	Plots which suggest where gaps might be, and a summary plot of where th
 
 - LatexToTab.sh:			Converts LaTeX table into tab delimited file.
 - covGapIntervals.sh:		Plots coverage plot of every candidate plot (bad way of displaying data).
-- coverageGenomic.sh:		Plots rectangle ranges plot of every candidate gap (still bad but not quite as bad).
+- coverageGenomic.sh:		Plots rectangle ranges plot of every candidate gap (still bad but not quite as bad). Also plots length distribution of gaps in genome. 
 
 
 
