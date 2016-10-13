@@ -21,7 +21,7 @@ gaps <- read.table("outputGapFinding/gapsTable.txt")
 
 #colnames(gaps) <-  c("read name", "chromosome", "startL1", "endL1", "startGap", "endGap", "length", "cigar", "flag")
 colnames(gaps) <- c("cluster", "start", "stop", "length")
-
+head(gaps)
 #start = gaps$startGap
 #end = gaps$endGap
   
@@ -48,12 +48,15 @@ plotRanges <- function(x, xlim = x, main = " ",
   axis(1)
 }
 
-#pdf(args[2], width = 10, height = 6)
+pdf("./plots/coverage/genomicSplices.pdf", width = 10, height = 6)
 plotRanges(gapIntervals)
-#graphics.off()
+graphics.off()
 
-
-
+# Make length distribution plot, in cornflower blue
+plot(sort(gaps$length), main = "")
+plot(density(gaps$length), main = "", xlab = "length of gap (bp)")
+polygon(density(gaps$length), col = "cornflowerblue")
+abline(v=100)
 #x <- c(seq(from=0,to=40000,by=500))
 
 #cov <- coverage(intervals)
