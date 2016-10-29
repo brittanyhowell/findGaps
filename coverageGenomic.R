@@ -54,9 +54,16 @@ graphics.off()
 
 # Make length distribution plot, in cornflower blue
 plot(sort(gaps$length), main = "")
-plot(density(gaps$length), main = "", xlab = "length of gap (bp)")
+abline(h=100)
+
+
+pdf("../../../Thesis/Figures/unGrouped/genomicGapLength.pdf", width = 10, height = 6)
+par(mar = c(5,5,1,1))
+plot(density(gaps$length), main = "",  xlab = "", ylab="", cex.axis = 1.5)
+title(xlab= "length of gap (bp)", cex.lab = 1.5, ylab = "Density")
 polygon(density(gaps$length), col = "cornflowerblue")
 abline(v=100)
+graphics.off()
 #x <- c(seq(from=0,to=40000,by=500))
 
 #cov <- coverage(intervals)
